@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened]
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: spm build and test
+        run: |
+          set -o pipefail
+          xcodebuild test -scheme 'ZPlayerCacher' -enableCodeCoverage YES -resultBundlePath './scripts/TestResult.xcresult' -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.1' build test | xcprettyxcpretty
+      - name: Codecov
+        uses: codecov/codecov-action@v3.1.1
+        with:
+          xcode: true
+          xcode_archive_path: './scripts/TestResult.xcresult'
