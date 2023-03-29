@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://codecov.io/gh/ZhgChgLi/ZPlayerCacher" target="_blank"><img src="https://codecov.io/gh/ZhgChgLi/ZPlayerCacher/branch/main/graph/badge.svg?token=DtFM8tKJye"></a>
-  <a href="https://github.com/ZhgChgLi/ZPlayerCacher/actions/workflows/ci.yml" target="_blank"><img src="https://github.com/ZhgChgLi/ZPlayerCacher/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/ZhgChgLi/ZPlayerCacher/actions/workflows/ci.yml" target="_blank"><img src="https://github.com/ZhgChgLi/ZPlayerCacher/actions/workflows/ci.yml/badge.svg?branch=main"></a>
 </p>
 
 ZPlayerCacher is a lightweight implementation of the AVAssetResourceLoaderDelegate protocol that enables AVPlayerItem to support caching streaming files.
