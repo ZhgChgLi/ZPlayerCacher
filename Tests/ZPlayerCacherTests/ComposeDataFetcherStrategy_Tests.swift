@@ -230,17 +230,19 @@ private class MockNetworkMediTask: NetworkTask {
 
         var expectedDatas = self.expectedDatas
         if let expectedData = expectedDatas.first {
-            network.delegate?.network(network, didReceive: expectedData)
+            DispatchQueue.main.async {
+                self.network.delegate?.network(self.network, didReceive: expectedData)
+            }
         }
         expectedDatas = Array(expectedDatas.dropFirst())
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+        DispatchQueue.main.async {
             expectedDatas.forEach { expectedData in
                 self.network.delegate?.network(self.network, didReceive: expectedData)
             }
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+        DispatchQueue.main.async {
             self.network.delegate?.network(self.network, didCompleteWithError: nil)
         }
     }
