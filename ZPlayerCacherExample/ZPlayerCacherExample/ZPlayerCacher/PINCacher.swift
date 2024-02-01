@@ -1,9 +1,8 @@
-```swift
 //
 //  PINCacher.swift
+//  ZPlayerCacherExample
 //
-//
-//  Created by https://zhgchg.li on 2022/8/31.
+//  Created by 李仲澄 on 2024/2/1.
 //
 
 import Foundation
@@ -34,4 +33,3 @@ public final class PINCacher: Cacher {
         PINCacher.cache.diskCache.byteLimit = diskByteLimit
     }
 }
-```

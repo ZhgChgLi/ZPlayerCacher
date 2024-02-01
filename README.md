@@ -52,12 +52,47 @@ end
 
 ## Usage
 ```swift
-let cacher: Cacher = // your implementation of Local Cache policy (Cacher Protocol), ref: PINCacher.md
-let logger = DefaultPlayerCacherLogger() // could use default
+let cacher: Cacher = PINCacher() // your implementation of Local Cache policy (Cacher Protocol), ref: /Sources/ZPlayerCacher/DataFetcherStrategy/Cacher/PINCacher.md
+let logger = DefaultPlayerCacherLogger()
 let factory = CacheableAVURLAssetFactory(cacher: cacher, logger: logger).makeCacheableAVURLAssetIfSupported(url: url)
 
 let playerItem = AVPlayerItem(asset: asset) // than playerItem will support caching
+
+// DefaultPlayerCacherLogger:
+class DefaultPlayerCacherLogger: PlayerCacherLogger {
+    var loggerLevel: PlayerCacherLevel = .info
+}
+
+// PINCacher:
+public final class PINCacher: Cacher {
+
+    static let cache: PINCache = PINCache(name: "ResourceLoader")
+
+    private lazy var jsonDecoder = JSONDecoder()
+    
+    public func set(key: String, data: Data, completion: ((Error?) -> Void)?) {
+        PINCacher.cache.setObjectAsync(data, forKey: key, completion: nil)
+    }
+
+    public func get(key: String) -> Data? {
+        let data = PINCacher.cache.object(forKey: key) as? Data
+        return data
+    }
+
+    public static func clean() {
+        PINCacher.cache.removeAllObjects()
+    }
+
+    public static func setByteLimit(memoryByteLimit: UInt, diskByteLimit: UInt) {
+        PINCacher.cache.memoryCache.costLimit = memoryByteLimit
+        PINCacher.cache.diskCache.byteLimit = diskByteLimit
+    }
+}
+
 ```
+
+### Example
+- ZPlayerCacherExample/ZPlayerCacherExample.xcodeproj
 
 ## Things to know
 - Due to limitations in the Apple iOS system, currently unsupported video formats such as HLS file format(.ts) are not supported by ZPlayerCacher.
