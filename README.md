@@ -9,6 +9,9 @@
 
 ZPlayerCacher is a lightweight implementation of the AVAssetResourceLoaderDelegate protocol that enables AVPlayerItem to support caching streaming files.
 
+[![Follow My Medium ZhgChgLi](https://github.com/user-attachments/assets/b64fb10f-23ae-481b-ac12-867ee7cde3f9)](https://medium.com/@zhgchgli)
+
+
 > Please note that while this project serves as a demonstration of AVFoundation AVAssetResourceLoaderDelegate and the use of Combine to manage data flow, the code may not be written to the highest standard of cleanliness. If you have any suggestions for improving the code, please feel free to create an issue or pull request on the repository.
 
 - [Technical Detail - AVPlayer 實踐本地 Cache 功能大全](https://medium.com/zrealm-ios-dev/avplayer-%E5%AF%A6%E8%B8%90%E6%9C%AC%E5%9C%B0-cache-%E5%8A%9F%E8%83%BD%E5%A4%A7%E5%85%A8-6ce488898003)
