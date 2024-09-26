@@ -13,7 +13,7 @@ ZPlayerCacher is a lightweight implementation of the AVAssetResourceLoaderDelega
 
 - [Technical Detail - AVPlayer 實踐本地 Cache 功能大全](https://medium.com/zrealm-ios-dev/avplayer-%E5%AF%A6%E8%B8%90%E6%9C%AC%E5%9C%B0-cache-%E5%8A%9F%E8%83%BD%E5%A4%A7%E5%85%A8-6ce488898003)
 
-# Buy me coffee ❤️❤️❤️
+# Buy me a coffee ❤️❤️❤️
 
 <a href="https://www.buymeacoffee.com/zhgchgli" target="_blank"><img width="545" alt="bmc-button" src="https://github.com/user-attachments/assets/5983bfc9-27fd-49e0-a7f4-eb07657c6e31"></a>
 
