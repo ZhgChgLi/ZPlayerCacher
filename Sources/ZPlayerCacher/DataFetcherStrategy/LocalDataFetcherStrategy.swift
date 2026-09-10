@@ -79,6 +79,32 @@ final class LocalDataFetcherStrategy: NSObject, DataFetcherStrategy {
                 let subData = assetData.subdata(in: Int(start) ..< subEnd)
                 promise(.success(subData))
                 return
+            } else {
+                // `start` is BEYOND the cached prefix, so neither branch above can
+                // serve it. Without this arm the `Future` returns having called
+                // `promise` on no path: it never resolves, never fails, and never
+                // completes.
+                //
+                // That is unrecoverable downstream. `ComposeDataFetcherStrategy`
+                // wraps this in `.catch`, but a catch converts an ERROR — a
+                // publisher that simply never emits produces none, so the `.catch`,
+                // the `.flatMap` and the remote-fetch merge after it never run. The
+                // whole chain is dead and playback hangs permanently rather than
+                // falling back to the network.
+                //
+                // Reporting `mediaDataNotFound` puts this case on the path the
+                // no-cache case already takes: Compose's catch turns it into `nil`
+                // and the remote strategy fetches the range. One extra request, and
+                // it resolves.
+                //
+                // Why it matters to a caller: without this, a partial cache entry
+                // is a liability rather than a saving, so a `Cacher` has to DELETE
+                // every incomplete entry defensively to stay safe. That throws away
+                // usable prefixes — measured in one app at a 5x median penalty on
+                // the affected opens (460ms vs 93ms) because each one refetches
+                // from byte zero. With this arm a partial can be kept and served.
+                promise(.failure(PlayerCacherError.mediaDataNotFound(self.url.absoluteString)))
+                return
             }
         }.eraseToAnyPublisher()
     }
